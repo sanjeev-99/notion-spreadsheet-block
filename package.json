@@ -1,0 +1,48 @@
+{
+  "name": "notion-spreadsheet-block",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A 10x10 spreadsheet with a real formula engine, as a Notion custom block.",
+  "license": "MIT",
+  "author": "Sanjeev Bhalla",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanjeev-99/notion-spreadsheet-block.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sanjeev-99/notion-spreadsheet-block/issues"
+  },
+  "homepage": "https://github.com/sanjeev-99/notion-spreadsheet-block#readme",
+  "keywords": [
+    "notion",
+    "notion-custom-block",
+    "notion-workers",
+    "spreadsheet",
+    "formula-engine"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "check": "tsc --noEmit && tsc -p blocks/spreadsheet/tsconfig.json --noEmit",
+    "test": "node --test \"test/*.test.ts\""
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.9.2"
+  },
+  "devDependencies": {
+    "@notionhq/custom-blocks-dev-shell": "^0.1.28",
+    "@types/node": "^22.9.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "typescript": "^6.0.3",
+    "vite": "^8.1.5"
+  },
+  "dependencies": {
+    "@notionhq/custom-blocks": "^0.1.21",
+    "@notionhq/workers": "^0.8.11",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}

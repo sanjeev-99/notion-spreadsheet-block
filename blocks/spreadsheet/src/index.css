@@ -1,0 +1,518 @@
+/*
+ * Styling is entirely Notion design tokens, so the block tracks the page's
+ * theme and contrast mode without branching on useTheme().
+ */
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background: var(--bg-base);
+}
+
+.nds {
+	color: var(--content-primary);
+	background: var(--bg-base);
+	font-family: var(--font-sans);
+}
+
+.sheet {
+	width: 100%;
+	padding: var(--spacing-8);
+}
+
+/* ── Toolbar ─────────────────────────────────────────────── */
+
+.toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--spacing-12);
+	margin-bottom: var(--spacing-8);
+}
+
+.tabs {
+	display: inline-flex;
+	padding: 2px;
+	border-radius: var(--radius-8);
+	background: var(--bg-muted);
+	gap: 2px;
+}
+
+.tab {
+	padding: var(--spacing-4) var(--spacing-12);
+	border: none;
+	border-radius: var(--radius-6);
+	color: var(--content-secondary);
+	background: transparent;
+	font-family: inherit;
+	font-size: 13px;
+	font-weight: var(--font-weight-medium);
+	cursor: pointer;
+}
+
+.tab:hover {
+	color: var(--content-primary);
+}
+
+.tab.is-active {
+	color: var(--content-primary);
+	background: var(--bg-elevated);
+	box-shadow: var(--shadow-sm);
+}
+
+.toolbar-actions {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-8);
+}
+
+.action {
+	padding: var(--spacing-4) var(--spacing-8);
+	border: 1px solid var(--border-primary);
+	border-radius: var(--radius-6);
+	color: var(--content-secondary);
+	background: var(--bg-elevated);
+	font-family: inherit;
+	font-size: 12px;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+.action:hover:not(:disabled) {
+	color: var(--content-primary);
+	background: var(--bg-muted);
+}
+
+.action:disabled {
+	color: var(--content-tertiary);
+	cursor: default;
+	opacity: 0.7;
+}
+
+.action.is-error-chip {
+	color: var(--red-80, var(--content-primary));
+	border-color: var(--red-80, var(--border-primary));
+}
+
+.status {
+	color: var(--content-tertiary);
+	font-size: 12px;
+}
+
+.status-error {
+	color: var(--red-80, var(--content-primary));
+}
+
+/* ── Formula bar ─────────────────────────────────────────── */
+
+.formula-bar {
+	display: flex;
+	align-items: stretch;
+	margin-bottom: var(--spacing-6);
+	border: 1px solid var(--border-primary);
+	border-radius: var(--radius-6);
+	overflow: hidden;
+}
+
+.formula-ref {
+	display: flex;
+	min-width: 68px;
+	align-items: center;
+	justify-content: center;
+	padding: 0 var(--spacing-8);
+	border-right: 1px solid var(--border-primary);
+	color: var(--content-tertiary);
+	background: var(--bg-muted);
+	font-size: 11px;
+	font-weight: var(--font-weight-medium);
+	white-space: nowrap;
+}
+
+.formula-input {
+	width: 100%;
+	height: 28px;
+	padding: 0 var(--spacing-8);
+	border: none;
+	outline: none;
+	color: var(--content-primary);
+	background: var(--bg-base);
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 12px;
+}
+
+.formula-input:disabled {
+	color: var(--content-tertiary);
+	background: var(--bg-muted);
+}
+
+/* ── Grid ────────────────────────────────────────────────── */
+
+/*
+ * The grid scrolls inside its own box on narrow pages so the block never forces
+ * horizontal scroll onto the Notion page hosting it.
+ */
+.grid-scroll {
+	overflow-x: auto;
+	border: 1px solid var(--border-primary);
+	border-radius: var(--radius-8);
+}
+
+/*
+ * `table-layout: fixed` with an explicit colgroup makes the browser honour the
+ * stored widths exactly instead of redistributing them to fit content. Width is
+ * auto rather than 100% for the same reason — the columns decide the table's
+ * size, not the other way round.
+ */
+.grid {
+	border-collapse: collapse;
+	table-layout: fixed;
+	width: auto;
+}
+
+.head-col {
+	width: 34px;
+}
+
+.grid th {
+	position: sticky;
+	color: var(--content-tertiary);
+	background: var(--bg-muted);
+	font-size: 11px;
+	font-weight: var(--font-weight-medium);
+	text-align: center;
+	user-select: none;
+}
+
+.corner,
+.row-head {
+	left: 0;
+	width: 34px;
+	min-width: 34px;
+	z-index: 1;
+}
+
+.col-head {
+	top: 0;
+	height: 22px;
+}
+
+.row-head {
+	height: 26px;
+}
+
+/* Row and column headers select their whole line so it can be cleared. */
+.head-button {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	border: none;
+	color: inherit;
+	background: transparent;
+	font: inherit;
+	cursor: pointer;
+}
+
+.head-button:hover {
+	color: var(--content-primary);
+	background: var(--bg-hover, var(--bg-elevated));
+}
+
+.head-button.is-active {
+	color: var(--content-primary);
+	background: var(--bg-elevated);
+	font-weight: var(--font-weight-semibold);
+}
+
+.grid th,
+.grid td {
+	padding: 0;
+	border: 1px solid var(--border-secondary);
+}
+
+/* ── Cells ───────────────────────────────────────────────── */
+
+.cell {
+	display: block;
+	width: 100%;
+	/* Fills the row, so a dragged row height actually changes the cell. */
+	height: 100%;
+	min-height: 20px;
+	padding: 0 var(--spacing-6);
+	border: none;
+	outline: none;
+	color: var(--content-primary);
+	background: transparent;
+	font-family: inherit;
+	font-size: 13px;
+	text-overflow: ellipsis;
+}
+
+.cell:hover {
+	background: var(--bg-hover, var(--bg-muted));
+}
+
+/*
+ * Every cell in a range, row or column selection is tinted; only the focused
+ * one gets the ring below, so it stays clear where typing will land.
+ */
+.cell.is-selected {
+	background: var(--bg-elevated);
+	box-shadow: inset 0 0 0 100px rgba(91, 147, 216, 0.1);
+}
+
+/*
+ * A box-shadow ring rather than an outline: it draws inside the cell, so the
+ * focused cell doesn't shift its neighbours or get clipped by the table border.
+ */
+.cell.is-focused {
+	box-shadow: inset 0 0 0 2px var(--blue-60, var(--content-primary));
+}
+
+/* Edit mode reads as a text field: left-aligned, monospace, never right-aligned
+ * as a number, so it is obvious you are looking at raw text. */
+.cell.is-editing {
+	background: var(--bg-base);
+	box-shadow: inset 0 0 0 2px var(--blue-60, var(--content-primary));
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 12px;
+	text-align: left;
+}
+
+.cell.is-numeric {
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+.cell.is-error {
+	color: var(--red-80, var(--content-primary));
+	text-align: right;
+}
+
+.cell.is-formula {
+	color: var(--content-secondary);
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 12px;
+}
+
+/*
+ * A cell that is not being edited must not start a native text selection —
+ * otherwise dragging across the grid highlights text inside each input and
+ * fights the range gesture. An edited cell stays selectable so the caret and
+ * text selection work normally.
+ */
+.cell[readonly] {
+	cursor: cell;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+/*
+ * An unsaved cell still shows the user's text — the write was rejected, not the
+ * input. The underline marks it as not yet persisted.
+ */
+.cell.is-unsaved {
+	text-decoration: underline wavy var(--red-80, currentColor);
+	text-underline-offset: 3px;
+}
+
+/* ── Cell colours ────────────────────────────────────────── */
+
+/*
+ * Explicit hex/rgba rather than Notion tokens: these have to stay legible on
+ * both the light and dark page background, and the token set does not expose a
+ * guaranteed mid-tone for every hue. Text colours are mid-tones that carry on
+ * either ground; fills are low-alpha so they tint whatever is behind them.
+ */
+.text-red { color: #e0625f; }
+.text-orange { color: #d1863a; }
+.text-green { color: #3fa06a; }
+.text-blue { color: #5b93d8; }
+.text-purple { color: #a382da; }
+.text-gray { color: #8d9199; }
+
+.fill-red { background-color: rgba(224, 98, 95, 0.18); }
+.fill-orange { background-color: rgba(209, 134, 58, 0.18); }
+.fill-green { background-color: rgba(63, 160, 106, 0.18); }
+.fill-blue { background-color: rgba(91, 147, 216, 0.18); }
+.fill-purple { background-color: rgba(163, 130, 218, 0.18); }
+.fill-gray { background-color: rgba(141, 145, 153, 0.18); }
+
+.cell.is-bold { font-weight: 700; }
+.cell.is-italic { font-style: italic; }
+
+/* ── Formatting bar ──────────────────────────────────────── */
+
+.format-bar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--spacing-8);
+	margin-bottom: var(--spacing-6);
+}
+
+.format-group {
+	display: flex;
+	align-items: center;
+	gap: 3px;
+}
+
+.format-label {
+	margin-right: 2px;
+	color: var(--content-tertiary);
+	font-size: 11px;
+}
+
+.fmt {
+	min-width: 26px;
+	height: 24px;
+	padding: 0 var(--spacing-6);
+	border: 1px solid var(--border-primary);
+	border-radius: var(--radius-4);
+	color: var(--content-secondary);
+	background: var(--bg-elevated);
+	font-family: inherit;
+	font-size: 12px;
+	cursor: pointer;
+}
+
+.fmt:hover:not(:disabled) {
+	color: var(--content-primary);
+	background: var(--bg-muted);
+}
+
+.fmt.is-on {
+	color: var(--content-primary);
+	border-color: var(--blue-60, var(--content-primary));
+	background: var(--bg-muted);
+}
+
+.fmt:disabled,
+.swatch:disabled,
+.format-size select:disabled {
+	cursor: default;
+	opacity: 0.5;
+}
+
+.swatch {
+	width: 18px;
+	height: 18px;
+	padding: 0;
+	border: 1px solid var(--border-primary);
+	border-radius: var(--radius-4);
+	cursor: pointer;
+}
+
+.swatch:hover:not(:disabled) {
+	border-color: var(--content-tertiary);
+}
+
+/* The "no colour" swatch reads as an empty slot. */
+.swatch.is-default {
+	background:
+		linear-gradient(
+			to top left,
+			transparent calc(50% - 1px),
+			var(--content-tertiary) calc(50% - 1px),
+			var(--content-tertiary) calc(50% + 1px),
+			transparent calc(50% + 1px)
+		),
+		var(--bg-base);
+}
+
+/* Text swatches show their hue as a solid chip, not as letter colour. */
+.swatch.text-red { background: #e0625f; }
+.swatch.text-orange { background: #d1863a; }
+.swatch.text-green { background: #3fa06a; }
+.swatch.text-blue { background: #5b93d8; }
+.swatch.text-purple { background: #a382da; }
+.swatch.text-gray { background: #8d9199; }
+
+.format-size select {
+	height: 24px;
+	border: 1px solid var(--border-primary);
+	border-radius: var(--radius-4);
+	color: var(--content-primary);
+	background: var(--bg-elevated);
+	font-family: inherit;
+	font-size: 12px;
+}
+
+/* ── Resize handles ──────────────────────────────────────── */
+
+.col-head,
+.row-head {
+	position: relative;
+}
+
+/*
+ * Sits over the header's trailing edge and overhangs both sides, so the grab
+ * area is comfortably wider than the 1px border it appears to move.
+ */
+.resize-handle {
+	position: absolute;
+	z-index: 2;
+	touch-action: none;
+}
+
+.resize-handle.is-col {
+	top: 0;
+	right: -3px;
+	width: 7px;
+	height: 100%;
+	cursor: col-resize;
+}
+
+.resize-handle.is-row {
+	bottom: -3px;
+	left: 0;
+	width: 100%;
+	height: 7px;
+	cursor: row-resize;
+}
+
+.resize-handle:hover {
+	background: var(--blue-60, var(--content-tertiary));
+}
+
+/* ── Failure banner ──────────────────────────────────────── */
+
+.banner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--spacing-12);
+	margin-bottom: var(--spacing-6);
+	padding: var(--spacing-8) var(--spacing-12);
+	border: 1px solid var(--red-80, var(--border-primary));
+	border-radius: var(--radius-6);
+	background: var(--translucent-red-30, var(--bg-muted));
+}
+
+.banner-text {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	font-size: 12px;
+	line-height: 1.45;
+}
+
+.banner-text strong {
+	color: var(--content-primary);
+	font-weight: var(--font-weight-semibold);
+}
+
+.banner-text span {
+	color: var(--content-secondary);
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+
+.hint {
+	margin-top: var(--spacing-6);
+	color: var(--content-tertiary);
+	font-size: 11px;
+	line-height: 1.5;
+}

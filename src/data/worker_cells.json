@@ -1,0 +1,44 @@
+{
+  "type": "worker",
+  "key": "worker_cells",
+  "name": "Spreadsheet cells",
+  "icon": "🧮",
+  "schema": {
+    "cell": { "name": "Cell", "type": "title" },
+    "raw": { "name": "Raw", "type": "rich_text" },
+    "value": { "name": "Value", "type": "rich_text" },
+    "blockId": { "name": "Block ID", "type": "rich_text" }
+  },
+  "rows": [
+    { "id": "seed-a1", "cell": "A1", "raw": "Region", "value": "Region", "blockId": "dev-shell-block" },
+    { "id": "seed-b1", "cell": "B1", "raw": "Q1", "value": "Q1", "blockId": "dev-shell-block" },
+    { "id": "seed-c1", "cell": "C1", "raw": "Q2", "value": "Q2", "blockId": "dev-shell-block" },
+    { "id": "seed-d1", "cell": "D1", "raw": "Total", "value": "Total", "blockId": "dev-shell-block" },
+
+    { "id": "seed-a2", "cell": "A2", "raw": "North", "value": "North", "blockId": "dev-shell-block" },
+    { "id": "seed-b2", "cell": "B2", "raw": "120", "value": "120", "blockId": "dev-shell-block" },
+    { "id": "seed-c2", "cell": "C2", "raw": "135", "value": "135", "blockId": "dev-shell-block" },
+    { "id": "seed-d2", "cell": "D2", "raw": "=SUM(B2:C2)", "value": "255", "blockId": "dev-shell-block" },
+
+    { "id": "seed-a3", "cell": "A3", "raw": "South", "value": "South", "blockId": "dev-shell-block" },
+    { "id": "seed-b3", "cell": "B3", "raw": "98", "value": "98", "blockId": "dev-shell-block" },
+    { "id": "seed-c3", "cell": "C3", "raw": "112", "value": "112", "blockId": "dev-shell-block" },
+    { "id": "seed-d3", "cell": "D3", "raw": "=SUM(B3:C3)", "value": "210", "blockId": "dev-shell-block" },
+
+    { "id": "seed-a5", "cell": "A5", "raw": "Total", "value": "Total", "blockId": "dev-shell-block" },
+    { "id": "seed-b5", "cell": "B5", "raw": "=SUM(B2:B3)", "value": "218", "blockId": "dev-shell-block" },
+    { "id": "seed-c5", "cell": "C5", "raw": "=SUM(C2:C3)", "value": "247", "blockId": "dev-shell-block" },
+    { "id": "seed-d5", "cell": "D5", "raw": "=SUM(D2:D3)", "value": "465", "blockId": "dev-shell-block" },
+
+    { "id": "seed-a6", "cell": "A6", "raw": "Avg / region", "value": "Avg / region", "blockId": "dev-shell-block" },
+    { "id": "seed-b6", "cell": "B6", "raw": "=ROUND(AVERAGE(D2:D3), 1)", "value": "232.5", "blockId": "dev-shell-block" },
+
+    { "id": "seed-a7", "cell": "A7", "raw": "Growth", "value": "Growth", "blockId": "dev-shell-block" },
+    { "id": "seed-b7", "cell": "B7", "raw": "=IF(C5>B5, \"up\", \"down\")", "value": "up", "blockId": "dev-shell-block" },
+
+    { "id": "seed-a9", "cell": "A9", "raw": "Bad ref", "value": "Bad ref", "blockId": "dev-shell-block" },
+    { "id": "seed-b9", "cell": "B9", "raw": "=K1", "value": "#REF!", "blockId": "dev-shell-block" },
+
+    { "id": "seed-other", "cell": "A1", "raw": "belongs to another sheet", "value": "belongs to another sheet", "blockId": "some-other-block" }
+  ]
+}
