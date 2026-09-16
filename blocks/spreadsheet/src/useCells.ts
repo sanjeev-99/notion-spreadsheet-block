@@ -105,7 +105,19 @@ export function useCells(): CellsState {
 		hasMore,
 		propertyIdsByKey,
 		error: queryError,
-	} = useDataSource("cells", { limit: ROW_LIMIT })
+	} = useDataSource("cells", {
+		limit: ROW_LIMIT,
+		filter:{ // Filter datasource by the id of the block
+			and: [
+					{
+						key: "blockId",
+						rich_text: {
+							equals: blockId
+						}
+					}
+			]
+		}
+	})
 
 	// A newly created page does not appear in the query straight away. Without
 	// remembering it, a second edit to the same cell before the refresh would see
@@ -147,7 +159,7 @@ export function useCells(): CellsState {
 	const rows = useMemo(() => {
 		const byRef = new Map<string, StoredRow>()
 		for (const item of items) {
-			if (asText(item.propertiesByKey.blockId) !== blockId) continue
+			// if (asText(item.propertiesByKey.blockId) !== blockId) continue
 
 			const ref = asText(item.propertiesByKey.cell).trim().toUpperCase()
 			if (!parseRef(ref)) continue
@@ -168,7 +180,7 @@ export function useCells(): CellsState {
 		() =>
 			items.find(
 				(item) =>
-					asText(item.propertiesByKey.blockId) === blockId &&
+					// asText(item.propertiesByKey.blockId) === blockId &&
 					asText(item.propertiesByKey.cell).trim() === META_CELL_KEY
 			),
 		[items, blockId]
