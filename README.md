@@ -271,16 +271,7 @@ source they pick or create, and the block does not initialize until they do. So
 every instance is bound by hand, and may share a database or not.
 
 **Sharing is safe** — `blockId` scopes rows, so instances never see each other's
-cells — **up to about 9 sheets.** `useDataSource` cannot filter and caps at 999
-rows, so every sheet in a database competes for one budget of 999 against 100
-cells each.
-
-Past that the query truncates, and the failure mode is silent corruption: a row
-belonging to this sheet may not be fetched, its cell looks empty, and writing to
-it creates a *second* row for the same ref. The block therefore watches
-`hasMore` and **locks editing entirely** when the bound database is too large,
-rather than letting a duplicate through. One database per sheet avoids the
-question.
+cells.
 
 > **Duplicating a page or block has not been tested.** A copied block should get
 > a new block id, which would leave it showing an empty sheet while the
