@@ -7,3 +7,4 @@ workers.json
 .dev-shell/
 .DS_Store
 *.tsbuildinfo
+.idea

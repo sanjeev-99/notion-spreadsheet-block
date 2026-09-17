@@ -40,7 +40,7 @@
     "vite": "^8.1.5"
   },
   "dependencies": {
-    "@notionhq/custom-blocks": "^0.1.21",
+    "@notionhq/custom-blocks": "^0.1.35",
     "@notionhq/workers": "^0.8.11",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
